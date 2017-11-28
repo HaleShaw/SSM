@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- shiro的核心：securityManager -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- 配置realm属性 -->
+		<property name="realm" ref="ssmAuthorizingRealm" />
+	</bean>
+
+	<!-- 定义一个realm -->
+    <bean id="ssmAuthorizingRealm" class="com.wudao.jian.ssm.shiro.realm.SsmAuthorizingRealm"></bean>
+    
+    <!-- shiroFilter -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+         <!-- 没有认证跳转页面 -->
+        <property name="loginUrl" value="/login.jsp"/>
+        <!-- 认证成功跳转页面 -->
+        <property name="successUrl" value="/main.jsp"/>
+        <!-- 无权限跳转页面 -->
+        <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
+        <property name="filterChainDefinitions">
+            <value>
+                /login = anon
+                /login.jsp = anon
+                /** = authc
+            </value>
+        </property>
+    </bean>
+</beans>

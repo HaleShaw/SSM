@@ -61,4 +61,7 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.wudao.jian.ssm.mapper" />
 	</bean>
+	
+	<!-- 引入Shiro配置文件 -->
+	<import resource="classpath:applicationContext-shiro.xml"/>
 </beans>
