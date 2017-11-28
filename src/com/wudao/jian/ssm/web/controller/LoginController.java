@@ -7,6 +7,10 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 登录Controller
+ * @author JianWudao
+ */
 @Controller
 public class LoginController {
 	@RequestMapping("/login")

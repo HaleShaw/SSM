@@ -23,12 +23,22 @@
         <property name="successUrl" value="/main.jsp"/>
         <!-- 无权限跳转页面 -->
         <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
-        <property name="filterChainDefinitions">
+        
+        <!-- 权限过滤器，调用factory-bean -->
+        <property name="filterChainDefinitionMap" ref="filterChainMap"></property>
+        <!-- <property name="filterChainDefinitions">
             <value>
                 /login = anon
                 /login.jsp = anon
+                /authorized.jsp = perms[user:add]
                 /** = authc
             </value>
-        </property>
+        </property> -->
     </bean>
+    
+    <!-- 指定MapFactory -->
+    <bean id="filterChainMapFactory" class="com.wudao.jian.ssm.shiro.realm.FilterChainDefinitionMapFactory"></bean>
+    
+    <!-- 通过factory-bean调用方法来获取权限map -->
+    <bean id="filterChainMap" factory-bean="filterChainMapFactory" factory-method="getFilterChainDefinitionMap"></bean>
 </beans>
