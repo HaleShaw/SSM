@@ -12,7 +12,16 @@
 	</bean>
 
 	<!-- 定义一个realm -->
-    <bean id="ssmAuthorizingRealm" class="com.wudao.jian.ssm.shiro.realm.SsmAuthorizingRealm"></bean>
+    <bean id="ssmAuthorizingRealm" class="com.wudao.jian.ssm.shiro.realm.SsmAuthorizingRealm">
+    	<property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+               <!-- 设置加密模式 -->
+                <property name="hashAlgorithmName" value="MD5"/>
+                 <!-- 设置加密次数 -->
+                <property name="hashIterations" value="1000"/>
+            </bean>
+        </property>
+    </bean>
     
     <!-- shiroFilter -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -26,14 +35,6 @@
         
         <!-- 权限过滤器，调用factory-bean -->
         <property name="filterChainDefinitionMap" ref="filterChainMap"></property>
-        <!-- <property name="filterChainDefinitions">
-            <value>
-                /login = anon
-                /login.jsp = anon
-                /authorized.jsp = perms[user:add]
-                /** = authc
-            </value>
-        </property> -->
     </bean>
     
     <!-- 指定MapFactory -->
