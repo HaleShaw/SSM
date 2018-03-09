@@ -26,6 +26,7 @@ public class UserMapperTest {
 
 	@Test
 	public void testGetAll() {
+		System.out.println("test");
 	}
 
 }
